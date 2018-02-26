@@ -13,12 +13,28 @@
             <h1> Welcome to Songify </h1>
             <h3> Enter name to access your account </h3>
             <div class="input-wrapper">
-                <input type="text" placeholder="Name" id="name-input">
+                <input type="text" placeholder="Name" id="name-input" value="Kartavya koala">
                 <button> Go </button>
             </div>
         </section>
         <div class="main hidden">
         </div>
     </div>
+
+    <script type="text/javascript">
+    var button = document.querySelector('.welcome-screen button');
+
+//Adding an event listerner to button
+    button.addEventListener('mouseover', function() {
+        var name = document.querySelector('#name-input').value;
+      console.log(name);
+    });
+
+//     var name;
+// name = document.querySelector('#name-input').value;
+//
+// var gender = "male";
+// console.log(gender);
+    </script>
 </body>
 </html>
