@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Song App</title>
+    <title>Song App</title>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
@@ -18,16 +18,27 @@
             </div>
         </section>
         <div class="main hidden">
+            <!-- main page -->
+            <header>
+                <div class="right floated user-name"> </div>
+            </header>
         </div>
     </div>
 
-    <script type="text/javascript">
-    var button = document.querySelector('.welcome-screen button');
+    <script src="jquery.js"> </script>
 
-//Adding an event listerner to button
-    button.addEventListener('mouseover', function() {
-        var name = document.querySelector('#name-input').value;
-      console.log(name);
+    <script type="text/javascript">
+    $('.welcome-screen button').on('click', function() {
+        var name = $('#name-input').val();
+
+        if(name.length > 2) {
+        var message = "Welcome, " +  name;
+        $('.main .user-name').text(message);
+        $('.welcome-screen').addClass('hidden');
+        $('.main').removeClass('hidden');
+        }else {
+          $('#name-input').addClass('error');
+        }
     });
 
 //     var name;
