@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Song App</title>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
@@ -22,6 +23,16 @@
             <header>
                 <div class="right floated user-name"> </div>
             </header>
+            <section class="content">
+                <audio src="song.mp3"></audio>
+            </section>
+            <footer>
+                <div>
+                    <div class="player-buttons">
+                        <i class="fa fa-play clickable play-icon"></i>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -32,13 +43,47 @@
         var name = $('#name-input').val();
 
         if(name.length > 2) {
-        var message = "Welcome, " +  name;
-        $('.main .user-name').text(message);
-        $('.welcome-screen').addClass('hidden');
-        $('.main').removeClass('hidden');
+            var message = "Welcome, " +  name;
+            $('.main .user-name').text(message);
+            $('.welcome-screen').addClass('hidden');
+            $('.main').removeClass('hidden');
         }else {
           $('#name-input').addClass('error');
         }
+    });
+
+    $('.play-icon').on('click',function() {
+      var song = document.querySelector('audio');
+      if(song.paused == true) {
+          console.log('Playing');
+          $('.play-icon').removeClass('fa-play');
+          $('.play-icon').addClass('fa-pause');
+          song.play();
+        }
+        else {
+          console.log('Pausing');
+          $('.play-icon').removeClass('fa-pause');
+          $('.play-icon').addClass('fa-play');
+          song.pause();
+        }
+    });
+
+    $('body').on('keypress',function(event) {
+        var song = document.querySelector('audio');
+      if (event.keyCode == 32){
+          if(song.paused == true) {
+              console.log('Playing');
+              $('.play-icon').removeClass('fa-play');
+              $('.play-icon').addClass('fa-pause');
+              song.play();
+            }
+            else {
+              console.log('Pausing');
+              $('.play-icon').removeClass('fa-pause');
+              $('.play-icon').addClass('fa-play');
+              song.pause();
+            }
+      }
     });
 
 //     var name;
