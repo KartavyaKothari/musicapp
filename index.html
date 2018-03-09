@@ -24,7 +24,16 @@
                 <div class="right floated user-name"> </div>
             </header>
             <section class="content">
-                <audio src="song.mp3"></audio>
+                <audio src=""></audio>
+                <div class="song-list">
+                   <div class="list-headers">
+                     <div> Title </div>
+                     <div> Artist </div>
+                     <div> Album </div>
+                     <div> Duration </div>
+                   </div>
+
+                 </div>
             </section>
             <footer>
                 <div>
@@ -46,21 +55,53 @@
     <script src="jquery.js"> </script>
 
     <script type="text/javascript">
-    $('.welcome-screen button').on('click', function() {
-        var name = $('#name-input').val();
+    //song varialbles
+    // var songName1 = 'Badri Ki Dulhania (Title Track)';
+    // var songName2 = 'Humma Song';
+    // var songName3 = 'Nashe Si Chadh Gayi';
+    // var songName4 = 'The Breakup Song';
+    var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3'];
+    var songList = ['Badri Ki Dulhania (Title Track)','Humma Song', 'Nashe Si Chadh Gayi', 'The Breakup Song'];
 
-        if(name.length > 2) {
-            var message = "Welcome, " +  name;
-            $('.main .user-name').text(message);
-            $('.welcome-screen').addClass('hidden');
-            $('.main').removeClass('hidden');
-        }else {
-          $('#name-input').addClass('error');
-        }
-    });
+    function setUpPlaylist() {
+      $('#song1 .song-name').text(songList[0]);
+      $('#song2 .song-name').text(songList[1]);
+      $('#song3 .song-name').text(songList[2]);
+      $('#song4 .song-name').text(songList[3]);
+    }
+    // function setUpPlaylist() {
+    //     // $('#song1 .song-name').text(songName1);
+    //     // $('#song2 .song-name').text(songName2);
+    //     // $('#song3 .song-name').text(songName3);
+    //     // $('#song4 .song-name').text(songName4);
+    // }
 
-    function fancyTimeFormat(time)
-{
+    function setUpPlaylist() {
+     // HTML STRING
+      var songDetailsHTML =
+          '<span class="song-name"></span>'+
+          '<span class="song-artist"></span>'+
+          '<span class="song-album"></span><'+
+          'span class="song-length"></span>';
+
+       for (var i=0; i < songList.length ; i++) {
+           $('.song-list').append('<div id="song'+ i + '" class="song">'+songDetailsHTML +'</div>');
+           $('#song'+ i +' .song-name').text(songList[i]);
+
+           $('#song' + i).attr('data-song-position', i) ;
+           $('#song' + i).click(function() {
+                // Selecting audio element and storing it in a variable
+                var audio = document.querySelector('audio');
+                var songPosition = $(this).attr('data-song-position');
+                songPosition = parseInt(songPosition) ;
+                audio.src = fileNames[songPosition] ;
+                toggleSong();
+          });
+       }
+    };
+
+    //fucntion to get a fancy time format
+    function fancyTimeFormat(time){
         // Hours, minutes and seconds
         var hrs = ~~(time / 3600);
         var mins = ~~((time % 3600) / 60);
@@ -78,6 +119,7 @@
         return ret;
     }
 
+    //Updates the song time properties
     function updateCurrentTime() {
         //Modify the updateCurrentTime() function like this
 
@@ -113,15 +155,33 @@
         },1000);
     }
 
+    //Hides welcome screen (Landing page) and shows main content
+    $('.welcome-screen button').on('click', function() {
+        var name = $('#name-input').val();
+
+        if(name.length > 2) {
+            var message = "Welcome, " +  name;
+            $('.main .user-name').text(message);
+            $('.welcome-screen').addClass('hidden');
+            $('.main').removeClass('hidden');
+            setUpPlaylist();
+        }else {
+          $('#name-input').addClass('error');
+        }
+    });
+
+    //Click event song play function
     $('.play-icon').on('click',function() {
       toggleSong();
     });
 
+    //Spacebar event song play function
     $('body').on('keypress',function(event) {
       if (event.keyCode == 32){
         toggleSong();
       }
     });
+
     </script>
 </body>
 </html>

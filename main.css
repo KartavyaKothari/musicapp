@@ -217,6 +217,11 @@ a {
   width: 200px;
 }
 
+.song-list {
+      width: 75%;
+      margin: 0 auto;
+    }
+
 .lyrics-container {
   width: 20%;
   height: 200px;
