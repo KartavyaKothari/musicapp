@@ -11,28 +11,32 @@ var songs = [
       'artist': 'Neha Kakkar, Monali Thakur, Ikka Singh, Dev Negi',
       'album': 'Badrinath ki Dulhania',
       'duration': '2:56',
-     'fileName': 'song1.mp3'
+     'fileName': 'song1.mp3',
+     'image': 'song1.jpg'
     },
     {
       'name': 'Humma Song',
       'artist': 'Badshah, Jubin Nautiyal, Shashaa Tirupati',
       'album': 'Ok Jaanu',
       'duration': '3:15',
-      'fileName': 'song2.mp3'
+      'fileName': 'song2.mp3',
+      'image': 'song2.jpg'
     },
     {
       'name': 'Nashe Si Chadh Gayi',
       'artist': 'Arijit Singh',
       'album': 'Befikre',
       'duration': '2:34',
-      'fileName': 'song3.mp3'
+      'fileName': 'song3.mp3',
+      'image': 'song3.jpg'
     },
     {
       'name': 'The Breakup Song',
       'artist': 'Nakash Aziz, Arijit Singh, Badshah, Jonita Gandhi',
       'album': 'Ae Dil Hai Mushkil',
       'duration': '2:29',
-      'fileName': 'song4.mp3'
+      'fileName': 'song4.mp3',
+      'image': 'song4.jpg'
   }];
 
 var currentSongPosition = null;
@@ -48,6 +52,15 @@ var currentSongPosition = null;
 //
 //    }
 // }
+
+function changeCurrentSongDetails(songPosition) {
+  var songObj = songs[songPosition] ;
+  $('.current-song-image').attr('src','img/' + songObj.image) ;
+  $('.current-song-name').text(songObj.name) ;
+  $('.current-song-album').text(songObj.album) ;
+}
+
+changeCurrentSongDetails(0);
 
 function setUpPlaylist() {
  // HTML STRING
@@ -77,6 +90,8 @@ function setUpPlaylist() {
                 audio.src = songs[songPosition].fileName ;
 
                 currentSongPosition = songPosition;
+
+                changeCurrentSongDetails(songPosition);
             }
 
 
