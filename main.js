@@ -5,39 +5,7 @@
 // var songName4 = 'The Breakup Song';
 var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3'];
 var songList = ['Badri Ki Dulhania (Title Track)','Humma Song', 'Nashe Si Chadh Gayi', 'The Breakup Song'];
-var songs = [
-    {
-      'name': 'Badri Ki Dulhania (Title Track)',
-      'artist': 'Neha Kakkar, Monali Thakur, Ikka Singh, Dev Negi',
-      'album': 'Badrinath ki Dulhania',
-      'duration': '2:56',
-     'fileName': 'song1.mp3',
-     'image': 'song1.jpg'
-    },
-    {
-      'name': 'Humma Song',
-      'artist': 'Badshah, Jubin Nautiyal, Shashaa Tirupati',
-      'album': 'Ok Jaanu',
-      'duration': '3:15',
-      'fileName': 'song2.mp3',
-      'image': 'song2.jpg'
-    },
-    {
-      'name': 'Nashe Si Chadh Gayi',
-      'artist': 'Arijit Singh',
-      'album': 'Befikre',
-      'duration': '2:34',
-      'fileName': 'song3.mp3',
-      'image': 'song3.jpg'
-    },
-    {
-      'name': 'The Breakup Song',
-      'artist': 'Nakash Aziz, Arijit Singh, Badshah, Jonita Gandhi',
-      'album': 'Ae Dil Hai Mushkil',
-      'duration': '2:29',
-      'fileName': 'song4.mp3',
-      'image': 'song4.jpg'
-  }];
+var songs = [];
 
 var currentSongPosition = null;
 
@@ -53,14 +21,27 @@ var currentSongPosition = null;
 //    }
 // }
 
+function fetchSongs() {
+
+      $.ajax({
+        'url': 'https://api.jsonbin.io/b/5a33ec99e16b1771645da15d',
+        'dataType': 'json',
+        'method': 'GET',
+        'success': function (responseData) {
+          // do something with the data here
+          songs = responseData ;
+          setUpPlaylist();
+          changeCurrentSongDetails(0);
+        }
+      }) ;
+}
+
 function changeCurrentSongDetails(songPosition) {
   var songObj = songs[songPosition] ;
-  $('.current-song-image').attr('src','img/' + songObj.image) ;
+  $('.current-song-image').attr('src',songObj.image) ;
   $('.current-song-name').text(songObj.name) ;
   $('.current-song-album').text(songObj.album) ;
 }
-
-changeCurrentSongDetails(0);
 
 function setUpPlaylist() {
  // HTML STRING
@@ -168,7 +149,8 @@ $('.welcome-screen button').on('click', function() {
         $('.main .user-name').text(message);
         $('.welcome-screen').addClass('hidden');
         $('.main').removeClass('hidden');
-        setUpPlaylist();
+
+        fetchSongs();
     }else {
       $('#name-input').addClass('error');
     }
